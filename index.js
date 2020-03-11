@@ -10,17 +10,11 @@ function NumberButton(props){
   );
 }
 
-function PointButton(props){
-  return(
-    <button>.</button>
-  );
-}
+function PointButton(props){return(<button>.</button>);}
 
-function EqualButton(props){
-  return(
-    <button onClick={props.onClick}>=</button>
-  )
-}
+function ClearButton(props){return(<button onClick={props.onClick}>C</button>)}
+
+function EqualButton(props){return(<button onClick={props.onClick}>=</button>)}
 
 function Display(props) {
   const displaySide = (side) => (side === null) ? "" : side.toString(); 
@@ -40,6 +34,7 @@ class Calculator extends React.Component {
     this.onNumberClick = this.onNumberClick.bind(this);
     this.onOperationClick = this.onOperationClick.bind(this);
     this.onEqualClick= this.onEqualClick.bind(this);
+    this.clearState = this.clearState.bind(this);
   }
 
   onNumberClick(e){
@@ -50,8 +45,6 @@ class Calculator extends React.Component {
       this.setState({[toChange]: addNumber(this.state[toChange],clickedNumber)});
     }
   }
-
- 
 
   onOperationClick(e,operation){
     this.setState({
@@ -71,13 +64,25 @@ class Calculator extends React.Component {
     });
   }
 
+  clearState(){
+    this.setState({
+      leftSide: null,
+      rightSide: null,
+      currOperation: null,
+      isLeftSide: null,
+    });
+  }
+
   
 
   render(){return(
     <div className="react-calculator">
       <table>
         <tbody>
-        <tr><td colSpan={4}><Display state={this.state}/></td></tr>
+        <tr>
+          <td colSpan={3}><Display state={this.state}/></td>
+          <td><ClearButton onClick={this.clearState}/></td>
+        </tr>
         <tr>
           <td><NumberButton value={1} onClick={this.onNumberClick}/></td>
           <td><NumberButton value={2} onClick={this.onNumberClick}/></td>
