@@ -10,19 +10,14 @@ function NumberButton(props){
   );
 }
 
-function PointButton(props){return(<button>.</button>);}
+function PointButton(props){return(<button onClick={props.onClick}>.</button>);}
 
 function ClearButton(props){return(<button onClick={props.onClick}>C</button>)}
 
 function EqualButton(props){return(<button onClick={props.onClick}>=</button>)}
 
 function Display(props) {
-  const displaySide = (side) => (side === null) ? "" : side.toString(); 
-  let toDisplay = props.state.leftSide;
-  if(!props.state.isLeftSide && props.state.rightSide !== null) {
-    toDisplay = props.state.rightSide;
-  }
-  return(<p>{ displaySide(toDisplay) }</p>);
+  return(<p>{ props.value }</p>);
 }
 
 class Calculator extends React.Component {
@@ -32,42 +27,54 @@ class Calculator extends React.Component {
       leftSide: props.value ? props.value : null, //NUMBER
       rightSide: null, //NUMBER
       isLeftSide: true, //BOOLEAN
-      currentOpeartion: null
+      currentOpeartion: null,
+      displayState: props.value ? props.value.toString() : ""
     };
     this.onNumberClick = this.onNumberClick.bind(this);
     this.onOperationClick = this.onOperationClick.bind(this);
     this.onEqualClick= this.onEqualClick.bind(this);
     this.clearState = this.clearState.bind(this);
+    this.onPointClick = this.onPointClick.bind(this);
   }
 
-  onNumberClick(e){
-    const addNumber = (current, clicked) => current*10 + clicked;
+  onNumberClick(e){   
     const clickedNumber = parseFloat(e.target.value);
-    const toChange = this.state.isLeftSide ?  "leftSide" : "rightSide";
     if(!isNaN(clickedNumber)){
-      this.setState({[toChange]: addNumber(this.state[toChange],clickedNumber)});
+      const newDisplayValue = parseFloat(this.state.displayState + "" + clickedNumber);
+      this.setState({displayState: newDisplayValue.toString()});
     }
   }
 
   onOperationClick(e,operation){
-    if(!this.state.isLeftSide){
-      this.onEqualClick();
+    const disValue = parseFloat(this.state.displayState);
+    if(!isNaN(disValue)) {
+      if(this.state.isLeftSide) {
+        this.setState({leftSide: disValue});
+      } else{
+        this.onEqualClick();
+      }
+      this.setState({
+        displayState: '',
+        rightSide: null,
+        currentOpeartion: operation,
+        isLeftSide: false,
+      });
     }
-    this.setState({
-      rightSide: null,
-      currentOpeartion: operation,
-      isLeftSide: false,
-    });
+    
   }
 
   onEqualClick(e){
     const currOperation = this.state.currentOpeartion;
     const operation = currOperation ? currOperation : (x,y) => 0;
-    const result = operation(this.state.leftSide, this.state.rightSide);
-    this.setState({
-      leftSide: result,
-      isLeftSide:true,
-    });
+    const rightSide = parseFloat(this.state.displayState);
+    if(!isNaN(rightSide)) {
+      const result = operation(this.state.leftSide, rightSide);
+      this.setState({
+        leftSide: result,
+        displayState: result.toString(),
+        isLeftSide:true,
+      });
+    }
   }
 
   clearState(){
@@ -75,10 +82,19 @@ class Calculator extends React.Component {
       leftSide: null,
       rightSide: null,
       currOperation: null,
-      isLeftSide: null,
+      isLeftSide: true,
+      displayState: "",
     });
   }
 
+  onPointClick(){
+    const disState = this.state.displayState;
+    if(!disState.includes('.')) {
+      this.setState(
+        {displayState: disState+'.'}
+      )
+    }
+  }
   
 
   render(){return(
@@ -86,7 +102,7 @@ class Calculator extends React.Component {
       <table>
         <tbody>
         <tr>
-          <td colSpan={3}><Display state={this.state}/></td>
+          <td colSpan={3}><Display value={this.state.displayState}/></td>
           <td><ClearButton onClick={this.clearState}/></td>
         </tr>
         <tr>
@@ -109,7 +125,7 @@ class Calculator extends React.Component {
         </tr>
         <tr>
           <td><NumberButton value={0} onClick={this.onNumberClick}/></td>
-          <td><PointButton/></td>
+          <td><PointButton onClick={this.onPointClick}/></td>
           <td><EqualButton onClick={this.onEqualClick}/></td>
           <td><OperationButton onClick={this.onOperationClick} value="+" operation={(x,y)=> x+y}/></td>
         </tr>
