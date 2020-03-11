@@ -47,6 +47,9 @@ class Calculator extends React.Component {
   }
 
   onOperationClick(e,operation){
+    if(!this.state.isLeftSide){
+      this.onEqualClick();
+    }
     this.setState({
       rightSide: null,
       currentOpeartion: operation,
