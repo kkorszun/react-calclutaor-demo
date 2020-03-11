@@ -23,17 +23,18 @@ function EqualButton(props){
 }
 
 function Display(props) {
-  return(<p>{ props.value }</p>)
+  const displaySide = (side) => (side === null) ? "" : side.toString(); 
+  const toDisplay = props.state.isLeftSide ? props.state.leftSide : props.state.rightSide; 
+  return(<p>{ displaySide(toDisplay) }</p>);
 }
 
 class Calculator extends React.Component {
   constructor(props){
     super(props)
     this.state ={
-      leftSide: props.value ? props.value : 0,
-      rightSide: 0,
-      isLeftSide: true,
-      displayState: props.value ? props.value.toString() : "0",
+      leftSide: props.value ? props.value : null, //NUMBER
+      rightSide: null, //NUMBER
+      isLeftSide: true, //BOOLEAN
       currentOpeartion: null
     };
     this.onNumberClick = this.onNumberClick.bind(this);
@@ -42,38 +43,31 @@ class Calculator extends React.Component {
   }
 
   onNumberClick(e){
-    let newState = this.state.displayState+e.target.value.toString();
-    if(this.state.displayState == "0") {
-      newState =  e.target.value.toString();
+    const addNumber = (current, clicked) => current*10 + clicked;
+    const clickedNumber = parseFloat(e.target.value);
+    const toChange = this.state.isLeftSide ?  "leftSide" : "rightSide";
+    if(!isNaN(clickedNumber)){
+      this.setState({[toChange]: addNumber(this.state[toChange],clickedNumber)});
     }
-    this.setState({displayState: newState})
   }
 
  
 
   onOperationClick(e,operation){
-    const parsedDisplay = parseFloat(this.state.displayState);
-    const newLeftSide =  parsedDisplay ? parsedDisplay : 0;
     this.setState({
-      displayState:"0",
-      rightSide: 0,
-      leftSide: newLeftSide,
+      rightSide: null,
       currentOpeartion: operation,
       isLeftSide: false,
     });
   }
 
   onEqualClick(e){
-    const parsedDisplay = parseFloat(this.state.displayState);
-    const newRightSide =  parsedDisplay ? parsedDisplay : 0;
     const currOperation = this.state.currentOpeartion;
     const operation = currOperation ? currOperation : (x,y) => 0;
-    const result = operation(this.state.leftSide, newRightSide);
+    const result = operation(this.state.leftSide, this.state.rightSide);
     this.setState({
       leftSide: result,
-      rightSide: newRightSide,
       isLeftSide:true,
-      displayState:result.toString()
     });
   }
 
@@ -83,7 +77,7 @@ class Calculator extends React.Component {
     <div className="react-calculator">
       <table>
         <tbody>
-        <tr><td colSpan={4}><Display value={this.state.displayState}/></td></tr>
+        <tr><td colSpan={4}><Display state={this.state}/></td></tr>
         <tr>
           <td><NumberButton value={1} onClick={this.onNumberClick}/></td>
           <td><NumberButton value={2} onClick={this.onNumberClick}/></td>
