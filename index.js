@@ -18,7 +18,10 @@ function EqualButton(props){return(<button onClick={props.onClick}>=</button>)}
 
 function Display(props) {
   const displaySide = (side) => (side === null) ? "" : side.toString(); 
-  const toDisplay = props.state.isLeftSide ? props.state.leftSide : props.state.rightSide; 
+  let toDisplay = props.state.leftSide;
+  if(!props.state.isLeftSide && props.state.rightSide !== null) {
+    toDisplay = props.state.rightSide;
+  }
   return(<p>{ displaySide(toDisplay) }</p>);
 }
 
