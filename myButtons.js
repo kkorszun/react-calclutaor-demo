@@ -1,6 +1,7 @@
 function OperationButton(props) {
   return (
     <button
+      className="circular ui orange icon button"
       value={props.value}
       onClick={e => props.onClick(e, props.operation)}
     >
@@ -11,20 +12,36 @@ function OperationButton(props) {
 
 function NumberButton(props) {
   return (
-    <button value={props.value} onClick={props.onClick}>
+    <button
+      className="circular ui yellow icon button"
+      value={props.value}
+      onClick={props.onClick}
+    >
       {props.value}
     </button>
   );
 }
 
 function PointButton(props) {
-  return <button onClick={props.onClick}>.</button>;
+  return (
+    <button className="circular ui grey icon button" onClick={props.onClick}>
+      .
+    </button>
+  );
 }
 
 function ClearButton(props) {
-  return <button onClick={props.onClick}>C</button>;
+  return (
+    <button className="circular ui red icon button" onClick={props.onClick}>
+      C
+    </button>
+  );
 }
 
 function EqualButton(props) {
-  return <button onClick={props.onClick}>=</button>;
+  return (
+    <button className="circular ui blue icon button" onClick={props.onClick}>
+      =
+    </button>
+  );
 }

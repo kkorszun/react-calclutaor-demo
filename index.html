@@ -1,6 +1,15 @@
 <html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
     <title>React Calculator</title>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
@@ -9,10 +18,23 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel" src="myButtons.js"></script>
     <script type="text/babel" src="display.js"></script>
+    <script type="text/babel" src="calculator.js"></script>
     <script type="text/babel" src="index.js"></script>
+
+    <style type="text/css">
+      body {
+        background-color: #dadada;
+      }
+      body > .grid {
+        height: 100%;
+      }
+      .column {
+        max-width: 250px;
+      }
+    </style>
   </head>
   <body>
     <!-- ... other HTML ... -->
-    <div id="root"></div>
+    <div id="root" class="ui middle aligned center aligned grid"></div>
   </body>
 </html>
