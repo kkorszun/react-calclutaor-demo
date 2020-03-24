@@ -70,7 +70,7 @@ class Calculator extends React.Component {
     const leftDisplay = this.state.leftDisplay;
     const commonProps = { isLeftSide, leftDisplay, rightDisplay };
     return (
-      <div className="react-calculator ui  segment compact">
+      <div id="react-calculator" className="ui  segment compact">
         <table>
           <tbody>
             <tr>
