@@ -3,7 +3,8 @@ class Calculator extends React.Component {
     leftDisplay: this.props.value ? this.props.value.toString() : "", //STRING
     rightDisplay: "", //STRING
     isLeftSide: true, //BOOLEAN
-    currentOpeartion: null
+    currentOpeartion: null,
+    lenghtLimit: 12
   };
 
   onNumberClick = e => {
@@ -13,7 +14,9 @@ class Calculator extends React.Component {
       : [this.state.rightDisplay, "rightDisplay"];
     if (!isNaN(clickedNumber)) {
       const newDisplayValue = disState + "" + clickedNumber;
-      this.setState({ [side]: newDisplayValue });
+      if (newDisplayValue.length < this.state.lenghtLimit) {
+        this.setState({ [side]: newDisplayValue });
+      }
     }
   };
 
@@ -36,7 +39,7 @@ class Calculator extends React.Component {
     if (!isNaN(rightSide)) {
       const result = operation(leftSide, rightSide);
       this.setState({
-        leftDisplay: result.toString(),
+        leftDisplay: displayFormat(result, this.state.lenghtLimit),
         isLeftSide: true
       });
     }

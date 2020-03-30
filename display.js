@@ -2,15 +2,15 @@ function Display(props) {
   const { isLeftSide, leftDisplay, rightDisplay } = props;
 
   const style = {
-    fontSize: "200%",
-    height: "1.3em",
+    fontSize: "175%",
+    height: "1.4em",
 
-    paddingRight: "0.1em",
+    paddingRight: "0.15em",
     direction: "rtl",
-    width: "5.3125em",
-    maxWidth: "5.3125em",
+    width: "7em",
+    maxWidth: "7em",
     borderRadius: "0.1em",
-
+    marginRight: "0.15em",
     backgroundColor: "white"
   };
 
