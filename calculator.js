@@ -1,13 +1,10 @@
 class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      leftDisplay: props.value ? props.value.toString() : "", //STRING
-      rightDisplay: "", //STRING
-      isLeftSide: true, //BOOLEAN
-      currentOpeartion: null
-    };
-  }
+  state = {
+    leftDisplay: props.value ? props.value.toString() : "", //STRING
+    rightDisplay: "", //STRING
+    isLeftSide: true, //BOOLEAN
+    currentOpeartion: null
+  };
 
   onNumberClick = e => {
     const clickedNumber = parseFloat(e.target.value);
@@ -65,12 +62,18 @@ class Calculator extends React.Component {
   };
 
   render() {
+    const style = {
+      borderRadius: "1.5em",
+      backgroundColor: "darkgray"
+    };
+
     const isLeftSide = this.state.isLeftSide;
     const rightDisplay = this.state.rightDisplay;
     const leftDisplay = this.state.leftDisplay;
     const commonProps = { isLeftSide, leftDisplay, rightDisplay };
+
     return (
-      <div id="react-calculator" className="ui  segment compact">
+      <div id="react-calculator" style={style} className="ui  segment compact">
         <table>
           <tbody>
             <tr>

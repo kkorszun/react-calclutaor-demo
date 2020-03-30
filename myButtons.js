@@ -1,7 +1,11 @@
 const MyCircularButton = props => {
   const { onClick, value } = props;
   return (
-    <button {...props} style={{ width: "2.5em" }}>
+    <button
+      {...props}
+      style={{ width: "2.5em" }}
+      className={`ui circular ${props.color} icon button huge `}
+    >
       {props.value}
     </button>
   );
@@ -10,49 +14,20 @@ const MyCircularButton = props => {
 function OperationButton(props) {
   return (
     <MyCircularButton
-      className="ui circular orange icon button huge"
+      color="orange "
       value={props.value}
       onClick={e => props.onClick(e, props.operation)}
     />
   );
 }
 
-function NumberButton(props) {
-  return (
-    <MyCircularButton
-      className="ui circular yellow icon button huge"
-      value={props.value}
-      onClick={props.onClick}
-    />
-  );
-}
-
-function PointButton(props) {
-  return (
-    <MyCircularButton
-      className="ui circular grey icon button huge"
-      value="."
-      onClick={props.onClick}
-    />
-  );
-}
-
-function ClearButton(props) {
-  return (
-    <MyCircularButton
-      className="ui circular red icon button huge"
-      value="C"
-      onClick={props.onClick}
-    />
-  );
-}
-
-function EqualButton(props) {
-  return (
-    <MyCircularButton
-      className="ui circular blue icon button huge"
-      value="="
-      onClick={props.onClick}
-    />
-  );
-}
+const NumberButton = props => <MyCircularButton {...props} color="yellow" />;
+const PointButton = props => (
+  <MyCircularButton value="." color="grey" {...props} />
+);
+const ClearButton = props => (
+  <MyCircularButton color="red" value="C" {...props} />
+);
+const EqualButton = props => (
+  <MyCircularButton value="=" color="blue" {...props} />
+);
