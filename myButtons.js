@@ -31,3 +31,19 @@ const ClearButton = props => (
 const EqualButton = props => (
   <MyCircularButton value="=" color="blue" {...props} />
 );
+
+const DivButton = ({ onClick }) => (
+  <OperationButton value="÷" onClick={onClick} operation={(x, y) => x / y} />
+);
+
+const MultiButton = ({ onClick }) => (
+  <OperationButton value="×" onClick={onClick} operation={(x, y) => x * y} />
+);
+
+const MinusButton = ({ onClick }) => (
+  <OperationButton onClick={onClick} value="-" operation={(x, y) => x - y} />
+);
+
+const AddButton = ({ onClick }) => (
+  <OperationButton onClick={onClick} value="+" operation={(x, y) => x + y} />
+);

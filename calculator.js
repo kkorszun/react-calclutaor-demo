@@ -1,6 +1,6 @@
 class Calculator extends React.Component {
   state = {
-    leftDisplay: props.value ? props.value.toString() : "", //STRING
+    leftDisplay: this.props.value ? this.props.value.toString() : "", //STRING
     rightDisplay: "", //STRING
     isLeftSide: true, //BOOLEAN
     currentOpeartion: null
@@ -74,90 +74,14 @@ class Calculator extends React.Component {
 
     return (
       <div id="react-calculator" style={style} className="ui  segment compact">
-        <table>
-          <tbody>
-            <tr>
-              <td colSpan={3}>
-                <Display {...commonProps} />
-              </td>
-              <td>
-                <ClearButton onClick={this.clearState} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <NumberButton value={1} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={2} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={3} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <OperationButton
-                  value="÷"
-                  onClick={this.onOperationClick}
-                  operation={(x, y) => x / y}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <NumberButton value={4} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={5} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={6} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <OperationButton
-                  value="×"
-                  onClick={this.onOperationClick}
-                  operation={(x, y) => x * y}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <NumberButton value={7} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={8} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <NumberButton value={9} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <OperationButton
-                  onClick={this.onOperationClick}
-                  value="-"
-                  operation={(x, y) => x - y}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <NumberButton value={0} onClick={this.onNumberClick} />
-              </td>
-              <td>
-                <PointButton onClick={this.onPointClick} />
-              </td>
-              <td>
-                <EqualButton onClick={this.onEqualClick} />
-              </td>
-              <td>
-                <OperationButton
-                  onClick={this.onOperationClick}
-                  value="+"
-                  operation={(x, y) => x + y}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <CalcKeyboard
+          displayComponent={<Display {...commonProps} />}
+          clearState={this.clearState}
+          onNumberClick={this.onNumberClick}
+          onOperationClick={this.onOperationClick}
+          onPointClick={this.onPointClick}
+          onEqualClick={this.onEqualClick}
+        />
       </div>
     );
   }
