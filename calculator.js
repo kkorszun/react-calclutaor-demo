@@ -63,7 +63,8 @@ class Calculator extends React.Component {
 
   render() {
     const style = {
-      borderRadius: "1.5em",
+      borderRadius: "0.5em",
+      padding: "0.5em",
       backgroundColor: "darkgray"
     };
 

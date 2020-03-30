@@ -3,7 +3,7 @@ const MyCircularButton = props => {
   return (
     <button
       {...props}
-      style={{ width: "2.5em" }}
+      style={{ width: "2.5em", margin: "0" }}
       className={`ui circular ${props.color} icon button huge `}
     >
       {props.value}
