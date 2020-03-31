@@ -12,4 +12,6 @@ Easiest way for *newer* **Node.js** versions (in project directory.):
 ```console
 npx http-server -c-1
 ```
+## Demo
 
+[CodePen demo](https://codepen.io/kkorszun/project/editor/DBRbyx)
